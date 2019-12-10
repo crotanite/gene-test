@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Gene Test</title>
+	</head>
+
+	<body>
+
+		<div style="width:50%; float:left">
+			<form id="geneForm">
+				<label for="type">Type</label><br>
+				<select name="type">
+					<option value="std">Standard</option>
+					<option value="dtd">Dominant to Dominant</option>
+					<option value="dtr">Dominant to Recessive</option>
+					<option value="mix">Mix</option>
+					<option value="mia">Mix All</option>
+				</select>
+
+				<br><br>
+
+				<label for="mother">Mother</label><br>
+				<select name="motherDom" id="motherDom"></select>
+				<select name="motherRec" id="motherRec"></select>
+
+				<br><br>
+
+				<label for="father">Father</label><br>
+				<select name="fatherDom" id="fatherDom"></select>
+				<select name="fatherRec" id="fatherRec"></select>
+
+				<br><br>
+
+				<input type="submit">
+			</form>
+
+			<br><br>
+
+			<b>Standard:</b> No range used. Standard genetics punnett square. PROBLEM: No range, so really limiting in possible results.
+			<br>
+			<b>Dominant to Dominant:</b> Mother's dominant to Father's dominant range. Mother's recessive to Father's recessive range. PROBLEM: Recessive is useless.
+			<br>
+			<b>Dominant to Recessive:</b> Mother's dominant to Mother's recessive range. Father's dominant to Father's recessive range. PROBLEM: Doesn't mix the parent's genetics.
+			<br>
+			<b>Mix:</b> Mother's dominant to Father's recessive range. Father's dominant to Mother's recessive range. PROBLEM: Makes no sense.
+			<br>
+			<b>Mix All:</b> Mother's dominant to Mother's recessive range. Mother's dominant to Father's recessive range. Father's dominant to Mother's recessive range. Father's dominant to Father's recessive range. PROBLEM: Makes no sense? Too many wild outcomes.
+		</div>
+
+		<div style="width:50%; float:left">
+			<div id="output"></div>
+		</div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script>
+			let motherDom = $('#motherDom')
+			let motherRec = $('#motherRec')
+			let fatherDom = $('#fatherDom')
+			let fatherRec = $('#fatherRec')
+
+
+			$.getJSON('data.json', (data) =>
+			{
+				$.each(data, (key, entry) => 
+				{
+					motherDom.append($('<option></option>').attr('value', entry.short).text(entry.name))
+					motherRec.append($('<option></option>').attr('value', entry.short).text(entry.name))
+					fatherDom.append($('<option></option>').attr('value', entry.short).text(entry.name))
+					fatherRec.append($('<option></option>').attr('value', entry.short).text(entry.name))
+				})
+			})
+
+			$(document).on('submit', 'form#geneForm', function() {
+				$('#output').html('loading...')
+				let json = ''
+				$.getJSON('data.json', (data) =>
+				{
+					json = data
+				})
+				$.ajax({
+					url: 'handle.php',
+					type: 'POST',
+					data: $(this).serialize(),
+					dataType: 'json',
+					success: (data) =>
+					{
+						let output = ''
+						let total = 0
+						Object.entries(data).map((arr) =>
+						{
+							const item = arr[0]
+							const count = arr[1]
+							total = total + count
+							output += '<div>'
+
+							const genes = item.match(/.{1,2}(?=(.{2})+(?!.))|.{1,2}$/g)
+							genes.forEach((gene) =>
+							{
+								obj = json.filter((x) =>
+								{
+									return x.short === gene
+								})[0]
+								output += obj.name + ' '
+							})
+
+							output += count
+							output += '</div>'
+						})
+						$('#output').html(output)
+					},
+					error: (xhr, error) => 
+					{
+						console.log(xhr)
+					},
+				})
+				return false
+			})
+		</script>
+	</body>
+</html>

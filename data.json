@@ -1,0 +1,32 @@
+[
+	{
+		"name": "Black",
+		"order": 1,
+		"short": "bl"
+	},
+	{
+		"name": "Coal",
+		"order": 2,
+		"short": "co"
+	},
+	{
+		"name": "Midnight",
+		"order": 3,
+		"short": "mg"
+	},
+	{
+		"name": "Charred",
+		"order": 4,
+		"short": "cr"
+	},
+	{
+		"name": "Ink",
+		"order": 5,
+		"short": "ik"
+	},
+	{
+		"name": "Pitch",
+		"order": 6,
+		"short": "ph"
+	}
+]
