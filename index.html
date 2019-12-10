@@ -49,6 +49,7 @@
 
 		<div style="width:50%; float:left">
 			<div id="output"></div>
+			<div id="total"></div>
 		</div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -107,6 +108,7 @@
 							output += '</div>'
 						})
 						$('#output').html(output)
+						$('#total').html(total)
 					},
 					error: (xhr, error) => 
 					{
