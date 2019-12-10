@@ -48,8 +48,8 @@
 		</div>
 
 		<div style="width:50%; float:left">
-			<div id="output"></div>
-			<div id="total"></div>
+			<div id="output">No Results</div>
+			<b>Total:</b> <span id="total">0</span>
 		</div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -104,7 +104,7 @@
 								output += obj.name + ' '
 							})
 
-							output += count
+							output += '<small><em>Count: ' + count + '</em></small>'
 							output += '</div>'
 						})
 						$('#output').html(output)
