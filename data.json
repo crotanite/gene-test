@@ -5,28 +5,18 @@
 		"short": "bl"
 	},
 	{
-		"name": "Coal",
+		"name": "Brown",
 		"order": 2,
 		"short": "co"
 	},
 	{
-		"name": "Midnight",
+		"name": "Cream",
 		"order": 3,
 		"short": "mg"
 	},
 	{
-		"name": "Charred",
+		"name": "White",
 		"order": 4,
 		"short": "cr"
-	},
-	{
-		"name": "Ink",
-		"order": 5,
-		"short": "ik"
-	},
-	{
-		"name": "Pitch",
-		"order": 6,
-		"short": "ph"
 	}
 ]
