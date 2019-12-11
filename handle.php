@@ -41,7 +41,7 @@ switch($type)
 			foreach($fatherColours as $rec)
 			{
 				$recGene = getGene($rec);
-				$genes[] = $domGene->order < $recGene->order ? $dom.$rec : $rec.$dom;
+				$genes[] = $dom.$rec;
 			}
 		}
 
