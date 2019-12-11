@@ -18,5 +18,25 @@
 		"name": "White",
 		"order": 4,
 		"short": "cr"
+	},
+	{
+		"name": "Green",
+		"order": 5,
+		"short": "gr"
+	},
+	{
+		"name": "Blue",
+		"order": 6,
+		"short": "bu"
+	},
+	{
+		"name": "Red",
+		"order": 7,
+		"short": "re"
+	},
+	{
+		"name": "Yellow",
+		"order": 8,
+		"short": "ye"
 	}
 ]
