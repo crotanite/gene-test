@@ -25,6 +25,7 @@
 				padding: 2.5px 5px;
 				width: 100%;
 			}
+
 			.height {
 				height: 300px;
 			}
@@ -34,10 +35,11 @@
 			}
 
 			img.gene {
+				height: 300px;
 				position: absolute;
 			}
 
-			img.recessive {
+			img.multiply {
 				mix-blend-mode: multiply;
 			}
 		</style>
@@ -62,6 +64,7 @@
 							<select name="blend" id="blend">
 								<option value="">None</option>
 								<option value="multiply" selected>Multiply</option>
+								<option value="lighten">Lighten</option>
 							</select>
 						</div>
 
@@ -182,6 +185,8 @@
 							const item = arr[0]
 							const genes = item.match(/.{1,2}(?=(.{2})+(?!.))|.{1,2}$/g)
 							let name = ''
+							let shadow = 'default'
+
 							total = total + count
 
 							output += '<div style="width:50%; float:left">'
@@ -195,14 +200,58 @@
 
 										if(key === 0)
 										{
-											output += '<img class="gene height" src="images/'+obj.short+'.png"/>'
+											output += '<img class="gene" src="images/'+obj.short+'.png"/>'
+
+											switch(obj.short)
+											{
+												// black
+												case 'bl':
+													shadow = 'neutral'
+													break;
+												// brown
+												case 'co':
+													shadow = 'warm_light'
+													break;
+												// cream
+												case 'mg':
+													shadow = 'warm_light'
+													break;
+												// white
+												case 'cr':
+													shadow = 'cold_light'
+													break;
+												// green
+												case 'gr':
+													shadow = 'cold_dark'
+													break;
+												// blue
+												case 'bu':
+													shadow = 'cold_dark'
+													break;
+												// red
+												case 're':
+													shadow = 'warm_dark'
+													break;
+												// yellow
+												case 'ye':
+													shadow = 'neutral'
+													break;
+											}
+
 										} else
 										{
 											if(recessive === 'true')
 											{
-												output += '<img class="gene height" style="opacity:'+opacity+';mix-blend-mode:'+blend+';" src="images/'+obj.short+'.png"/>'
+												output += '<img class="gene" style="opacity:'+opacity+';mix-blend-mode:'+blend+';" src="images/'+obj.short+'.png"/>'
 											}
+
+											output += '<img class="gene" src="images/eyes.png" />'
+											output += '<img class="gene" src="images/skin.png" />'
+											output += '<img class="gene multiply" src="images/highlights.png" />'
+											output += '<img class="gene multiply" src="images/shadows/'+shadow+'.png" />'
+											output += '<img class="gene multiply" src="images/outline.png" />'
 										}
+
 										name += obj.name + ' '
 									})
 								output += '</div>'
